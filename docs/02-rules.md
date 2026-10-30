@@ -1,45 +1,45 @@
-# قواعد الحضور والساعات
+# Attendance and hours rules
 
-الاتجاه يُستنتج من اسم الجهاز ثم من حقل Direction في البصمة. نوع الباب يقرر هل الحركة دخول للمبنى أم خروج منه أم حركة داخلية.
+Direction is taken from the device name, then from the Direction field on the punch. The door role decides whether the movement is a building entry, a building exit, or movement inside HQ.
 
-## أنواع الأبواب
+## Door types
 
-| النوع | المعنى |
+| Type | Meaning |
 | --- | --- |
-| Building entry | دخول المقر. الشخص يصبح داخل المبنى. |
-| Building exit | خروج المقر. الشخص يصبح خارج المبنى. |
-| Inside entry / Inside exit | باب داخلي، مثل Food Court. الشخص يبقى داخل المقر. |
-| Room / other | غرفة أو جهاز لا يغيّر حالة الوجود في المبنى. |
+| Building entry | Entering HQ. The person is inside the building. |
+| Building exit | Leaving HQ. The person is outside the building. |
+| Inside entry / Inside exit | An internal door, such as Food Court. The person stays inside HQ. |
+| Room / other | A room or device that does not change whether the person is in the building. |
 
-القيم المحفوظة: `building_in`، `building_out`، `internal_in`، `internal_out`، `other`.
+Stored values: `building_in`, `building_out`, `internal_in`, `internal_out`, `other`.
 
 ## Food Court
 
-هذان السيريالان ثابتان ولا يُعاد تصنيفهما كأبواب مبنى حتى لو تغيّر الحفظ:
+These two serials stay internal doors even if a save tries to change them:
 
-| الجهاز | السيريال | النوع |
+| Device | Serial | Type |
 | --- | --- | --- |
 | MB GF FC IN | GM9731498 | Inside entry |
 | MB GF FC OUT | GM9731530 | Inside exit |
 
-مثال: إذا كانت بصمة الشخص الوحيدة اليوم هي `MB GF FC OUT`، الحالة **In the building** مع ملاحظة أنه شُوهد على باب داخلي. ليست «Exit only» وليست «Already left».
+Example: if a person's only punch today is `MB GF FC OUT`, the status is **In the building**, with a note that they were seen on an inside door. It is not Exit only and it is not Already left.
 
-«Already left» تعني أن آخر حركة مبنى هي Building exit.
+Already left means the latest building movement is a building exit.
 
-«Exit only» تعني خروج من باب المبنى بدون دخول مبنى في نفس اليوم.
+Exit only means a building exit with no building entry on the same day.
 
-## الساعات
+## Hours
 
-لكل شخص ولكل يوم:
+For each person and each day:
 
-1. **In the building** — أزواج دخول مبنى ثم خروج مبنى.
-2. **Non-productive** — أزواج الأبواب الداخلية (دخول داخلي ثم خروج داخلي) المقصوصة داخل وقت الوجود في المبنى. Food Court يدخل هنا.
-3. **Productive** — وقت المبنى ناقص الوقت غير المنتج.
+1. **In the building** — pairs of building entry then building exit.
+2. **Non-productive** — pairs of inside doors (inside entry then inside exit), clipped to the time the person was in the building. Food Court is included here.
+3. **Productive** — time in the building minus non-productive time.
 
-اليوم المفتوح الذي لم يُغلق بخروج مبنى يُقص إلى وقت القراءة، بحد أقصى نهاية اليوم.
+An open day that has no building exit is clipped to the read time, and never past the end of that day.
 
-Overview يعرض المجموع كدائرة. الضغط على Productive أو Non-productive يفتح قائمة الأشخاص في الفلتر الحالي.
+Overview shows the totals as a pie. Choosing Productive or Non-productive lists the people in the current filter.
 
-## التأخير
+## Late arrival
 
-Presence يعتبر البصمة الأولى بعد **09:15** تأخيراً. هذا المؤشر منفصل عن ساعات الإنتاج.
+Presence marks a first punch after **09:15** as late. That flag is separate from productive hours.

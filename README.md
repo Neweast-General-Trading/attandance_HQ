@@ -1,40 +1,40 @@
 # HQ Access & Attendance
 
-لوحة حضور المقر الرئيسي: من دخل المبنى، من طلع، ساعات العمل، Food Court، وأنواع الأبواب.
+HQ door attendance: who entered the building, who left, hours worked, Food Court visits, and door types.
 
-التشغيل الحي: [https://mis.neweast.cloud/hq-attendance/](https://mis.neweast.cloud/hq-attendance/)
+Live app: [https://mis.neweast.cloud/hq-attendance/](https://mis.neweast.cloud/hq-attendance/)
 
-قراءة فقط من قاعدة بصمات المقر وملف الموظفين. لا يوجد أي كتابة على SQL Server أو SAP. حفظ أنواع الأبواب يتم في ملف محلي على سيرفر MIS.
+Reads the HQ punch database and the employee file. Nothing is written to SQL Server or SAP. Door-type choices are stored in a local file on the MIS server.
 
-## المحتويات
+## Contents
 
-| المسار | الوظيفة |
+| Path | Purpose |
 | --- | --- |
-| [docs/01-screens.md](docs/01-screens.md) | الشاشات وما يظهر في كل واحدة |
-| [docs/02-rules.md](docs/02-rules.md) | الدخول، الخروج، Food Court، الساعات |
-| [docs/03-data.md](docs/03-data.md) | مصادر البيانات وواجهة الـ API |
-| [docs/04-run.md](docs/04-run.md) | التشغيل المحلي والنشر |
-| `web/` | واجهة React / Vite |
-| `api/` | وحدات القراءة وحفظ أنواع الأبواب داخل API المشترك |
-| `deploy/` | مثال nginx ومتغيرات البيئة بدون كلمات سر |
+| [docs/01-screens.md](docs/01-screens.md) | Screens and what each one shows |
+| [docs/02-rules.md](docs/02-rules.md) | Entry, exit, Food Court, and hours |
+| [docs/03-data.md](docs/03-data.md) | Data sources and the API |
+| [docs/04-run.md](docs/04-run.md) | Local run and deployment |
+| `web/` | React / Vite UI |
+| `api/` | Read path and local door-type storage used by the shared API |
+| `deploy/` | nginx example and environment variable names, without secrets |
 
-## شاشات اللوحة
+## Screens
 
-1. **Overview** — ساعات منتجة وغير منتجة على شكل دائرة، مع تفاصيل الأشخاص وتقرير الساعات الكامل.
-2. **Hours** — يومي / أسبوعي / شهري، مع Excel.
-3. **In building** — من ما زال داخل المقر ومن خرج من باب المبنى.
-4. **Doors** — الأجهزة المستخدمة اليوم ومن سُجّل عليها.
-5. **Food Court** — قارئ الدخول `GM9731498` وقارئ الخروج `GM9731530`.
-6. **Door types** — تصنيف كل باب: دخول مبنى، خروج مبنى، باب داخلي، أو غرفة.
-7. **People / Presence / Devices / Timeline** — تقارير البصمات حسب الفلاتر.
+1. **Overview** — productive and non-productive hours as a pie, with a people breakdown and a link to the full hours report.
+2. **Hours** — daily, weekly, and monthly totals, with Excel export.
+3. **In building** — who is still inside HQ and who left through a building door.
+4. **Doors** — devices used today and who was recorded on them.
+5. **Food Court** — IN reader `GM9731498` and OUT reader `GM9731530`.
+6. **Door types** — classify each door as building entry, building exit, an inside door, or a room.
+7. **People / Presence / Devices / Timeline** — punch reports for the current filters.
 
-زر **Reset** يعيد التاريخ والشخص والقسم والباب والاتجاه إلى كامل الفترة.
+**Reset** restores the full date range and clears person, department, door, and direction.
 
-## قاعدة مختصرة
+## Short rule
 
-خروج Food Court ليس خروجاً من المقر. فقط باب **Building exit** ينقل الشخص إلى «Already left». التفاصيل في [docs/02-rules.md](docs/02-rules.md).
+A Food Court exit is not leaving HQ. Only a **building exit** moves a person to Already left. Details are in [docs/02-rules.md](docs/02-rules.md).
 
-## تشغيل سريع
+## Quick start
 
 ```bash
 cd web
@@ -42,6 +42,6 @@ npm install
 npm run dev
 ```
 
-الواجهة على المنفذ `4022` والمسار `/hq-attendance/`. الـ API المتوقع: `http://127.0.0.1:4012/api/hq-attendance`.
+The UI listens on port `4022` at `/hq-attendance/`. It expects the API at `http://127.0.0.1:4012/api/hq-attendance`.
 
-خطوات النشر الكاملة في [docs/04-run.md](docs/04-run.md).
+Full deploy steps are in [docs/04-run.md](docs/04-run.md).

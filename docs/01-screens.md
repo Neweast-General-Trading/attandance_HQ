@@ -1,35 +1,35 @@
-# الشاشات
+# Screens
 
-الواجهة مجموعة في ثلاثة أقسام في الشريط العلوي.
+The top bar groups the UI into three sections.
 
 ## Today
 
-| التبويب | ماذا يعرض |
+| Tab | What it shows |
 | --- | --- |
-| In building | من داخل المقر الآن، من خرج، ومن لديه بصمة اليوم. الحالة تُحسب من أبواب المبنى فقط. |
-| Doors | كل جهاز استُخدم في التاريخ المختار، وعدد الدخول والخروج، ومن ما زال مرتبطاً بآخر حضور. |
-| Food Court | زيارات قارئي الكافتيريا، مع تفاصيل حركات الشخص في اليوم. |
+| In building | Who is inside HQ now, who left, and who has a punch today. Status uses building doors only. |
+| Doors | Every device used on the selected date, in and out counts, and who is still tied to their last presence. |
+| Food Court | Visits on the cafeteria readers, with that person's movements for the day. |
 
 ## Reports
 
-| التبويب | ماذا يعرض |
+| Tab | What it shows |
 | --- | --- |
-| Overview | دائرة Productive مقابل Non-productive. الضغط على شريحة يفتح الأشخاص. Full hours report ينقل إلى تبويب الساعات. |
-| Hours | وقت داخل المبنى، الوقت غير المنتج، والوقت المنتج. تجميع يومي أو أسبوعي أو شهري، وتصدير Excel. |
-| People | الأشخاص في الفلتر الحالي. الصف يفتح بصمات الشخص. |
-| Presence | أول وآخر بصمة في اليوم، والتأخير بعد 09:15. |
-| Devices | الأجهزة وعدد البصمات، مع عمود السيريال وتصدير Excel. |
-| Timeline | سجل البصمات الخام للفلتر الحالي. |
+| Overview | Productive versus non-productive pie. A slice opens the people in that total. Full hours report opens the Hours tab. |
+| Hours | Time in the building, non-productive time, and productive time. Daily, weekly, or monthly rollup, plus Excel export. |
+| People | People in the current filter. A row opens that person's punches. |
+| Presence | First and last punch of the day, and late arrival after 09:15. |
+| Devices | Devices and punch counts, with a serial column and Excel export. |
+| Timeline | Raw punches for the current filter. |
 
 ## Setup
 
-| التبويب | ماذا يعرض |
+| Tab | What it shows |
 | --- | --- |
-| Door types | تصنيف الأبواب. الاقتراح يأتي من اسم الجهاز، والحفظ يبقى محلياً. |
+| Door types | Door classification. The suggestion comes from the device name. The save stays local. |
 
-## الفلاتر
+## Filters
 
-تظهر في تقارير Reports:
+Report filters:
 
 - From / To
 - Person
@@ -38,6 +38,6 @@
 - Door
 - Direction
 
-**Apply** يطبق المسودة. **Reset** يرجع الفترة كاملة ويلغي الشخص والقسم والباب والاتجاه وتركيز «Late».
+**Apply** uses the draft. **Reset** restores the full date range and clears person, department, door, direction, and the Late focus.
 
-فلاتر Today و Food Court مستقلة (تاريخ وبحث)، ولها Reset خاص يرجع لآخر يوم.
+Today and Food Court have their own date and search filters. Their Reset returns to the latest day.

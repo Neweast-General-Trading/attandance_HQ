@@ -1,14 +1,14 @@
-# التشغيل والنشر
+# Run and deploy
 
-## المتطلبات
+## Requirements
 
-- Node.js 20 أو أحدث
-- API المشترك من مشروع MIS على المنفذ `4012`
-- وصول قراءة إلى `NEGT_HQ_ATTN`، واختياري إلى `NEGTPAYROLL_UAE`
+- Node.js 20 or newer
+- The shared MIS API on port `4012`
+- Read access to `NEGT_HQ_ATTN`, and optionally to `NEGTPAYROLL_UAE`
 
-## متغيرات البيئة
+## Environment
 
-انسخ الأسماء من `deploy/env.example` إلى `server/.env` في مشروع MIS. لا تضع كلمات السر في Git.
+Copy the names from `deploy/env.example` into `server/.env` in the MIS project. Do not commit passwords.
 
 ```text
 HQ_ATTN_SERVER
@@ -22,7 +22,7 @@ SQL_DB_PASSWORD
 SQL_DB_DATABASE
 ```
 
-## تطوير الواجهة
+## UI development
 
 ```bash
 cd web
@@ -30,34 +30,34 @@ npm install
 npm run dev
 ```
 
-يفتح Vite على `0.0.0.0:4022` وبالمسار `/hq-attendance/`. طلبات `/api` تُحوَّل في التطوير إلى `127.0.0.1:4012`.
+Vite listens on `0.0.0.0:4022` at `/hq-attendance/`. In development, `/api` is proxied to `127.0.0.1:4012`.
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## نشر الواجهة
+## Deploy the UI
 
-من مجلد المصدر داخل MIS (`hq-attendance/`)، بعد البناء:
+From the MIS source folder (`hq-attendance/`), after the build:
 
 ```bash
 npm run build
 rsync -a --delete dist/ /var/www/mis-dashboard/hq-attendance/
 ```
 
-nginx يخدم المسار كما في `deploy/nginx-hq-attendance.conf`.
+nginx serves the path as in `deploy/nginx-hq-attendance.conf`.
 
-التحقق:
+Check:
 
 ```bash
 curl -sS -o /dev/null -w '%{http_code}\n' https://mis.neweast.cloud/hq-attendance/
 curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:4012/api/hq-attendance
 ```
 
-المتوقّع `200` للصفحة. الـ API يعيد JSON فيه `rowCount` و `events`.
+The page should return `200`. The API returns JSON with `rowCount` and `events`.
 
-## نشر تغيير في القراءة أو أنواع الأبواب
+## Deploy a read-path or door-type change
 
 ```bash
 cd /home/negt/MIS/server
@@ -65,9 +65,9 @@ npm run build
 pm2 restart mis-dashboard-api
 ```
 
-## ما لا يُنشر
+## Do not publish
 
 - `node_modules/`
 - `dist/`
-- أي ملف `.env` أو كلمة سر
-- ملف `hq-device-roles.json` إذا احتوى تعديلات تشغيل خاصة بالسيرفر؛ الأنواع الافتراضية لـ Food Court موجودة في الكود
+- any `.env` file or password
+- `hq-device-roles.json` when it holds server-specific edits; the Food Court defaults live in code
